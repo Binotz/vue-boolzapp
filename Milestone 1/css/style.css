@@ -1,5 +1,94 @@
+/* RESET */
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+/* COMMON */
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #d8dbd7;
+}
+.icons{
+    color: #b1b1b1;
+}
+/* APP Layout */
+#app-container{
+    width: 100%;
+    padding: 2rem 0;
+    /* TEST */
+    background-color: aquamarine;
+}
+#app{
+    margin: 0 auto;
+    height: 100vh;
+    max-width: 1800px;
+    display: flex;
+    /* TEST */
+    background-color: pink;
+}
+/* Left column */
+#left-column{
+    width: calc(100%/3);
+    /* TEST */
+    background-color: white;
+}
+#left-header{
+    padding: 1rem;
+}
+#user-details{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#user-details .icons i{
+    margin-left: 1rem;
+    font-size: 1.5rem;
+}
+.user-profile img{
+    width: 50px;
+    border-radius: 50%;
+    margin-right: .5rem;
+}
+.user-profile span{
+    font-size: 1.4rem;
+}
+.user-profile>*{
+    vertical-align: middle;
+}
+/* Notification advice */
+#notification-advice{
+    padding: 1rem;
+    background-color: #8edafb;
+    display: flex;
+}
+#notification-advice-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    color: #8edafb;
+    margin-right: 1rem; 
+}
+#notification-advice-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#notification-advice-text :first-child{
+    font-weight: bold;
+}
+#notification-advice-text :last-child{
+    text-decoration: underline;
+    color: #4f7484;
+}
+
+
+/* Right column */
+#right-column{
+    width: calc(100%/3 * 2);
 }
