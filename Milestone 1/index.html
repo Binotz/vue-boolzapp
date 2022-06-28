@@ -67,12 +67,19 @@
             <div id="right-column">
                 <!-- header -->
                 <div id="right-header">
-                    <img :src="'./img/avatar' + contacts[activeChat].avatar + '.jpg'" :alt="contacts[activeChat].name">
-                    <div id="chat-details">
-                        <span id="contact-name-current-chat">
-                            {{ contacts[activeChat].name }}
-                        </span>
-                        <span id="last-login-time">Ultimo accesso alle</span>
+                    <div id="current-chat">
+                        <img :src="'./img/avatar' + contacts[activeChat].avatar + '.jpg'" :alt="contacts[activeChat].name">
+                        <div id="chat-details">
+                            <span id="contact-name-current-chat">
+                                {{ contacts[activeChat].name }}
+                            </span>
+                            <span id="last-login-time">Ultimo accesso alle</span>
+                        </div>
+                    </div>
+                    <div class="icons">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i class="fa-solid fa-paperclip"></i>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
                     </div>
                 </div>
                 <!-- Chat -->
