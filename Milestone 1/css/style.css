@@ -159,7 +159,6 @@ body{
     background-color: var(--header-bg);
 }
 #right-header img{
-    /* width: 70px; */
     border-radius: 50%;
     align-items: center;
     margin-right: 1rem;
