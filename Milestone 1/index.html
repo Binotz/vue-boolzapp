@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Vue JS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <!-- Local CSS -->
     <link rel="stylesheet" href="./css/style.css">
     <title>Boolzapp</title>
@@ -44,12 +46,54 @@
                         <span>Attiva notifiche desktop</span>
                     </div>
                 </div>
+                <!-- contact seach -->
+                <div id="contact-search">
+                    <input type="text" placeholder="Cerca o inizia una nuova chat">
+                </div>
+                <!-- Chat list -->
+                <div id="chat-list">
+                    <ul>
+                        <!-- Single contact -->
+                        <li v-for="contact,index in contacts" :class="{'active': index == activeChat}" @click="currentChat(index)">
+                            <img :src="'./img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">
+                            <div class="contact-text">
+                                <span class="contact-name">{{ contact.name }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <!-- Right clumn -->
             <div id="right-column">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat facere quidem, veritatis quisquam fugit laboriosam soluta odio magni cum inventore quam aperiam eligendi ipsum tempore non expedita aliquam eaque. Hic?
+                <!-- header -->
+                <div id="right-header">
+                    <img :src="'./img/avatar' + contacts[activeChat].avatar + '.jpg'" :alt="contacts[activeChat].name">
+                    <div id="chat-details">
+                        <span id="contact-name-current-chat">
+                            {{ contacts[activeChat].name }}
+                        </span>
+                        <span id="last-login-time">Ultimo accesso alle</span>
+                    </div>
+                </div>
+                <!-- Chat -->
+                <div id="chat-layout">
+                    <div id="chat-content">
+                        <!-- messagges -->
+                        <div v-for="chat in contacts[activeChat].messages" class="messagge" :class="{'my-message': chat.status == 'sent', 'sender-message': chat.status == 'received'}">
+                            <span class="chat-text">{{ chat.text }}</span>
+                            <span class="chat-date">{{ chat.date }}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- input message -->
+                <div id="message-input">
+                    <i class="fa-regular fa-face-smile"></i>
+                    <input type="text" placeholder="Scrivi un messaggio">
+                    <i class="fa-solid fa-microphone"></i>
+                </div>
             </div>
-        </div>
     </div>
+
+    <script src="./js/script.js"></script>
 </body>
 </html>
