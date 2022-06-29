@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Vue JS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- external JS -->
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Boolzapp</title>
+</head>
+<body>
+    <div id="app-container">
+        <div id="app">
+            <!-- Left column -->
+            <div id="left-column">
+                <!-- header -->
+                <div id="left-header">
+                    <!-- user details -->
+                    <div id="user-details">
+                        <div class="user-profile">
+                            <img src="./img/avatar_io.jpg" alt="user-avatar">
+                            <span>Nome Utente</span>
+                        </div>
+                        <div class="icons">
+                            <i class="fa-solid fa-circle-notch"></i>
+                            <i class="fa-solid fa-message"></i>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Notification advice -->
+                <div id="notification-advice">
+                    <div id="notification-advice-icon">
+                        <i class="fa-solid fa-bell-slash"></i>
+                    </div>
+                    <div id="notification-advice-text">
+                        <span>Ricevi notifiche di nuovi messaggi</span>
+                        <span>Attiva notifiche desktop</span>
+                    </div>
+                </div>
+                <!-- contact seach -->
+                <div id="contact-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Cerca o inizia una nuova chat" v-model="queryName" @keyup="queryContact()" >
+                </div>
+                <!-- Chat list -->
+                <div id="chat-list">
+                    <ul>
+                        <!-- Single contact -->
+                        <li v-for="contact,index in contacts" :class="{'active': index == activeChat}" @click="currentChat(index)" v-if="contact.visible">
+                            <img :src="'./img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">
+                            <div class="contact-text" >
+                                <span class="contact-name">{{ contact.name }}</span>
+                                <span class="last-message"> {{ sliceMsgPreview(contact.messages[contact.messages.length-1].text) }} </span>
+                            </div>
+                            <span class="last-message-time"> {{ contact.messages[contact.messages.length-1].date }} </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Right clumn -->
+            <div id="right-column">
+                <!-- header -->
+                <div id="right-header">
+                    <div id="current-chat">
+                        <img :src="'./img/avatar' + contacts[activeChat].avatar + '.jpg'" :alt="contacts[activeChat].name">
+                        <div id="chat-details">
+                            <span id="contact-name-current-chat">
+                                {{ contacts[activeChat].name }}
+                            </span>
+                            <span id="last-login-time">Ultimo accesso alle</span>
+                        </div>
+                    </div>
+                    <div class="icons">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i class="fa-solid fa-paperclip"></i>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </div>
+                </div>
+                <!-- Chat -->
+                <div id="chat-layout">
+                    <div id="chat-content">
+                        <!-- messagges -->
+                        <div v-for="chat,index in contacts[activeChat].messages" class="messagge" :class="{'my-message': chat.status == 'sent', 'sender-message': chat.status == 'received'}">
+                            <span class="chat-text">{{ chat.text }}</span>
+                            <span class="chat-date">{{ chat.date }}</span>
+                            <!-- Milestone 5 -->
+                            <span class="dropdown-icon" @click="showMessageOption(index)"><i class="fa-solid fa-chevron-down"></i></span>
+                            <div class="dropdown-bubble" :class="{'visible': showMessageOptionIndex === index}">
+                                <div>info messaggio</div>
+                                <div @click="deleteMessage(index)">Elimina messaggio</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- input message -->
+                <div id="message-input">
+                    <i class="fa-regular fa-face-smile"></i>
+                    <input type="text" placeholder="Scrivi un messaggio" v-model="messageText" @keyup.enter="sendMessage()">
+                    <i class="fa-solid fa-microphone"></i>
+                </div>
+            </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
