@@ -2,6 +2,7 @@ var app = new Vue({
     el:'#app',
     data:{
         activeChat: 0,
+        messageText: '',
         contacts: [
             {
                 name: 'Michele',
@@ -91,7 +92,28 @@ var app = new Vue({
     methods:{
         currentChat: function(chatIndex){
             this.activeChat = chatIndex;
-        }
+        },
+        sendMessage: function(){
+            //Creo il messaggio
+            let message = {
+                date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                text: this.messageText,
+                status: 'sent'
+            };
+            //Lo pusho nella lista dei messaggi
+            this.contacts[this.activeChat].messages.push(message);
+            //pulisco l'input
+            this.messageText = '';
+            //genero la risposta automatica dopo 1 sec, con text ok
+            setTimeout(()=>{
+                message = {
+                    date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+                    text: 'ok',
+                    status: 'received'
+                };
+                this.contacts[this.activeChat].messages.push(message);
+            },1000);
+        },
     }
 });
     
