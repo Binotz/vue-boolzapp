@@ -45,7 +45,7 @@
                     </div>
                     <div id="notification-advice-text">
                         <span>Ricevi notifiche di nuovi messaggi</span>
-                        <span>Attiva notifiche desktop</span>
+                        <span @click="hideNotification()">Attiva notifiche desktop</span>
                     </div>
                 </div>
                 <!-- contact seach -->
@@ -78,7 +78,7 @@
                             <span id="contact-name-current-chat">
                                 {{ contacts[activeChat].name }}
                             </span>
-                            <span id="last-login-time">Ultimo accesso alle</span>
+                            <span id="last-login-time">Ultimo accesso alle {{ contacts[activeChat].messages[contacts[activeChat].messages.length - 1].date }}</span>
                         </div>
                     </div>
                     <div class="icons">
@@ -95,8 +95,8 @@
                             <span class="chat-text">{{ chat.text }}</span>
                             <span class="chat-date">{{ chat.date }}</span>
                             <!-- Milestone 5 -->
-                            <span class="dropdown-icon" @click="showMessageOption(index)"><i class="fa-solid fa-chevron-down"></i></span>
-                            <div class="dropdown-bubble" :class="{'visible': showMessageOptionIndex === index}">
+                            <span class="dropdown-icon" @click.stop="showMessageOption(index)"><i class="fa-solid fa-chevron-down"></i></span>
+                            <div class="dropdown-bubble" :class="{'visible': showMessageOptionIndex === index}" v-click-outside="hideMessageOption">
                                 <div>info messaggio</div>
                                 <div @click="deleteMessage(index)">Elimina messaggio</div>
                             </div>
@@ -111,7 +111,7 @@
                 </div>
             </div>
     </div>
-
+    
     <script src="./js/script.js"></script>
 </body>
 </html>

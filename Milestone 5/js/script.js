@@ -118,6 +118,7 @@ var app = new Vue({
             },1000);
         },
         queryContact: function(){
+            //mostro tutti gli utenti nel caso in cui l'input sia vuoto
             if(this.queryName === ''){
                 this.contacts.forEach(contact =>{
                     contact.visible = true;
@@ -134,23 +135,44 @@ var app = new Vue({
             });
         },
         showMessageOption: function(index){
+            //mi salvo l'indice del messaggio attualmente cliccato 
             if(this.showMessageOptionIndex === index){
                 this.showMessageOptionIndex = -1;
             } else{
                 this.showMessageOptionIndex = index;
             }
-
-            console.log(index);
+        },
+        hideMessageOption: function(index){
+            //resetto l'indice del messaggio delezionato
+            this.showMessageOptionIndex = -1;
         },
         deleteMessage: function(index){
             this.contacts[this.activeChat].messages.splice(index, 1);
         },
         sliceMsgPreview: function(msg){
-            if(msg.length > 15){
+            //se il messaggio è lungo più di 30 char, ci appendo i tre puntini 
+            if(msg.length > 30){
                 msg = msg.slice(0,30) + '...';
             }
             return msg;
-        }
+        },
     },
-});
-    
+    directives:{
+        //direttiva custom per chiudere il popup se click fuori dallo stesso
+        'click-outside':{
+            bind: function (el, binding, vnode) { 
+                el.eventOnClick = function (event) {
+                    // controllo se il click è fuori dall'elemento e i suoi child
+                    if (!(el == event.target || el.contains(event.target)) ){
+                        //chiamo il metodo passato come attributo, hideMessageOption
+                        vnode.context[binding.expression](event);
+                    }
+                };
+                document.addEventListener('click', el.eventOnClick);
+                document.addEventListener('touchend', el.eventOnClick);
+            }, unbind: function (el) {
+                document.removeEventListener('click', el.eventOnClick);
+                document.removeEventListener('touchend', el.eventOnClick);
+            },
+        }
+    }});
