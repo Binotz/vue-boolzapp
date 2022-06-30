@@ -89,6 +89,9 @@ var app = new Vue({
                     }
                 ],
             },
+        ],
+        quotes:[
+           "Combatti, per questa libertà sono pronto a sacrificare tutto! Non ha importanza quanto questo mondo possa sembrarti orribile, non ha importanza quanto questo mondo sia crudele: combatti!", "Solo chi è pronto a rinunciare a ciò a cui tiene di più sarà in grado di cambiare le cose.","Per ottenere dei risultati, non c'è niente di meglio del dolore fisico.","Questo mondo è sempre stato crudele, i forti hanno sempre oppresso i deboli e tutti fingevano di non accorgersene. ","Stanno tutti preparandosi ad uccidere i giganti solo per starne il più lontani possibile.", "Il tenere alla propria vita non è un istinto da disprezzare.", "Il momento di maggior pericolo è quando si sta tutti tranquilli!", "L'unica scelta che abbiamo è vivere all'interno delle mura! Ad agire precipitosamente si muore e basta, come i miei genitori!"
         ]  
     },
     methods:{
@@ -108,10 +111,20 @@ var app = new Vue({
             //pulisco l'input
             this.messageText = '';
             //genero la risposta automatica dopo 1 sec, con text ok
+            // setTimeout(()=>{
+            //     message = {
+            //         date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+            //         text: 'ok',
+            //         status: 'received'
+            //     };
+            //     this.contacts[this.activeChat].messages.push(message);
+            // },1000);
+            //BONUS: random quotes
+            let quote = this.quotes[this.getRandomNumber(0, this.quotes.length -1)];
             setTimeout(()=>{
                 message = {
                     date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
-                    text: 'ok',
+                    text: quote,
                     status: 'received'
                 };
                 this.contacts[this.activeChat].messages.push(message);
@@ -156,6 +169,9 @@ var app = new Vue({
             }
             return msg;
         },
+        getRandomNumber: function(min, max){
+                return Math.floor(Math.random() * (max - min + 1) ) + min;
+        }
     },
     directives:{
         //direttiva custom per chiudere il popup se click fuori dallo stesso

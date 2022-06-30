@@ -45,7 +45,7 @@
                     </div>
                     <div id="notification-advice-text">
                         <span>Ricevi notifiche di nuovi messaggi</span>
-                        <span @click="hideNotification()">Attiva notifiche desktop</span>
+                        <span>Attiva notifiche desktop</span>
                     </div>
                 </div>
                 <!-- contact seach -->
@@ -57,7 +57,10 @@
                 <div id="chat-list">
                     <ul>
                         <!-- Single contact -->
-                        <li v-for="contact,index in contacts" :class="{'active': index == activeChat}" @click="currentChat(index)" v-if="contact.visible">
+                        <li v-for="contact,index in contacts" 
+                        :class="{'active': index == activeChat}" 
+                        @click="currentChat(index)" 
+                        v-if="contact.visible">
                             <img :src="'./img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">
                             <div class="contact-text" >
                                 <span class="contact-name">{{ contact.name }}</span>
