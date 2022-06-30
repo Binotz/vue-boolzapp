@@ -5,6 +5,7 @@ var app = new Vue({
         messageText: '',
         queryName: '',
         showMessageOptionIndex: null,
+        dropDownChatMenuToggle: false,
         contacts: [
             {
                 name: 'Michele',
@@ -168,6 +169,15 @@ var app = new Vue({
                 msg = msg.slice(0,30) + '...';
             }
             return msg;
+        },
+        toggleDropDownChatMenu: function(){
+            this.dropDownChatMenuToggle = !this.dropDownChatMenuToggle;
+        },
+        deleteChat: function(){
+            this.contacts.splice(this.activeChat,1);
+        },
+        deleteAllMessages: function(){
+            this.contacts[this.activeChat].messages = [];
         },
         getRandomNumber: function(min, max){
                 return Math.floor(Math.random() * (max - min + 1) ) + min;

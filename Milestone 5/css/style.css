@@ -20,6 +20,7 @@ body{
     width: 80%;
 }
 .icons{
+    position: relative;
     color: #b1b1b1;
 }
 .active{
@@ -279,5 +280,28 @@ body{
     background-color: #f2f2f2;
 }
 .visible{
+    display: inline-block;
+}
+/* extra BONUS */
+.dropdown-chat-menu{
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: -20px;
+    background-color: white;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+#right-header .dropdown-chat-menu>div{
+    width: 100%;
+    font-size: 1rem;
+    color: black;
+    white-space: nowrap;
+    padding: 10px;
+}
+#right-header .dropdown-chat-menu>div:hover{
+    background-color: #f2f2f2;
+}
+.dropdown-chat-menu.visible{
     display: inline-block;
 }
