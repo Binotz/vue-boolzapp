@@ -175,6 +175,11 @@ var app = new Vue({
         },
         deleteChat: function(){
             this.contacts.splice(this.activeChat,1);
+            if (this.activeChat > 0){
+                this.activeChat--;
+            } else {
+                this.activeChat = 0;
+            }
         },
         deleteAllMessages: function(){
             this.contacts[this.activeChat].messages = [];

@@ -55,12 +55,12 @@
                 </div>
                 <!-- Chat list -->
                 <div id="chat-list">
-                    <ul>
+                    <ul v-if="contacts.length > 0">
                         <!-- Single contact -->
                         <li v-for="contact,index in contacts" 
                         :class="{'active': index == activeChat}" 
                         @click="currentChat(index)" 
-                        v-if="contact.visible">
+                        v-if="contact.visible && contacts.length > 0">
                             <img :src="'./img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">
                             <div class="contact-text" >
                                 <span class="contact-name">{{ contact.name }}</span>
@@ -71,13 +71,16 @@
                             <span class="last-message-time" v-else> Nessun accesso eseguito</span>
                         </li>
                     </ul>
+                    <ul v-else>
+                        <li>Nessun Contatto</li>
+                    </ul>
                 </div>
             </div>
             <!-- Right clumn -->
             <div id="right-column">
                 <!-- header -->
                 <div id="right-header">
-                    <div id="current-chat">
+                    <div id="current-chat" v-if="contacts.length > 0">
                         <img :src="'./img/avatar' + contacts[activeChat].avatar + '.jpg'" :alt="contacts[activeChat].name">
                         <div id="chat-details">
                             <span id="contact-name-current-chat">
@@ -88,25 +91,36 @@
                             
                         </div>
                     </div>
+
+                    <div id="current-chat" v-else>
+                        <img src="./img/avatar_io.jpg" alt="io">
+                        <div id="chat-details">
+                            <span id="contact-name-current-chat">
+                                Nessun contatto
+                            </span>
+                            <span id="last-login-time">Nessun accesso eseguito</span>
+                            
+                        </div>
+                    </div>
+
                     <div class="icons">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <i class="fa-solid fa-paperclip"></i>
                         <i class="fa-solid fa-ellipsis-vertical" @click="toggleDropDownChatMenu()"></i>
                         <div class="dropdown-chat-menu" :class="{'visible': dropDownChatMenuToggle}">
                             <div @click="deleteChat()">Elimina Chat</div>
-                            <div @click="deleteAllMessages()">Elimina messaggio</div>
+                            <div @click="deleteAllMessages()">Elimina messaggi nella chat</div>
                         </div>
                     </div>
                 </div>
                 <!-- Chat -->
                 <div id="chat-layout">
-                    <div id="chat-content">
+                    <div id="chat-content" v-if="contacts.length > 0">
                         <!-- messagges -->
                         <div 
                         v-for="chat,index in contacts[activeChat].messages" 
                         class="messagge" 
                         :class="{'my-message': chat.status == 'sent', 'sender-message': chat.status == 'received'}"
-                        v-if="contacts[activeChat].messages.length > 0"
                         >
                             <span class="chat-text">{{ chat.text }}</span>
                             <span class="chat-date">{{ chat.date }}</span>
@@ -118,6 +132,7 @@
                             </div>
                         </div>
                     </div>
+                    <div v-else></div>
                 </div>
                 <!-- input message -->
                 <div id="message-input">
